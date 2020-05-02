@@ -15,7 +15,7 @@ export default class Situation {
    active: boolean;
 
    @Column()
-   amount_notification: boolean;
+   amount_notification: number;
 
    @CreateDateColumn()
    created_at: Date;
