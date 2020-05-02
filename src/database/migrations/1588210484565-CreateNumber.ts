@@ -4,7 +4,7 @@ export default class CreateNumber1588210484565 implements MigrationInterface {
    public async up(queryRunner: QueryRunner): Promise<any> {
       await queryRunner.createTable(
          new Table({
-            name: 'number',
+            name: 'stone',
             columns: [
                {
                   name: 'id',
@@ -13,8 +13,9 @@ export default class CreateNumber1588210484565 implements MigrationInterface {
                   // generationStrategy: 'increment',
                },
                {
-                  name: 'situacao',
+                  name: 'situations',
                   type: 'varchar',
+                  isNullable: true,
                },
                {
                   name: 'created_at',
@@ -32,6 +33,6 @@ export default class CreateNumber1588210484565 implements MigrationInterface {
    }
 
    public async down(queryRunner: QueryRunner): Promise<any> {
-      await queryRunner.dropTable('number');
+      await queryRunner.dropTable('stone');
    }
 }

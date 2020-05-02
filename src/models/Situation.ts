@@ -1,8 +1,8 @@
-import { Entity, Column, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, CreateDateColumn, UpdateDateColumn, PrimaryColumn } from 'typeorm';
 
 @Entity('situation')
 export default class Situation {
-   @PrimaryGeneratedColumn()
+   @PrimaryColumn()
    id: number;
 
    @Column()

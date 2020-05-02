@@ -7,8 +7,8 @@ export default class InsertSituation1588036611097 implements MigrationInterface 
          .insert()
          .into('situation')
          .values([
-            { id: 1, description: 'Par', information: null },
-            { id: 2, description: 'Impar', information: null },
+            { id: 1, description: 'Impar', information: null },
+            { id: 2, description: 'Par', information: null },
             { id: 3, description: 'Preto', information: null },
             { id: 4, description: 'Vermelho', information: null },
             { id: 5, description: 'Pequenas', information: '1 ao 18' },
