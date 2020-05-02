@@ -11,8 +11,8 @@ import {
 import Gamer from './Gamer';
 import Stone from './Stone';
 
-@Entity('gamer')
-export default class Situation {
+@Entity('round')
+export default class Round {
    @PrimaryGeneratedColumn()
    id: number;
 

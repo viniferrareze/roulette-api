@@ -11,6 +11,12 @@ export default class Situation {
    @Column()
    information: string;
 
+   @Column()
+   active: boolean;
+
+   @Column()
+   amount_notification: boolean;
+
    @CreateDateColumn()
    created_at: Date;
 

@@ -16,7 +16,6 @@ export default class CreateRound1588355765615 implements MigrationInterface {
                {
                   name: 'gamer_id',
                   type: 'integer',
-                  isNullable: true,
                },
 
                {

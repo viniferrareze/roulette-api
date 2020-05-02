@@ -24,6 +24,15 @@ export default class CreateSituation1588035825485 implements MigrationInterface 
                   isNullable: true,
                },
                {
+                  name: 'active',
+                  type: 'boolean',
+               },
+
+               {
+                  name: 'amount_notification',
+                  type: 'integer',
+               },
+               {
                   name: 'created_at',
                   type: 'timestamp',
                   default: 'now()',
