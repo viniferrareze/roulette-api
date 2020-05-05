@@ -10,6 +10,7 @@ export default class CreateSequence1588437065923 implements MigrationInterface {
                   name: 'id',
                   type: 'integer',
                   isPrimary: true,
+                  isGenerated: true,
                   generationStrategy: 'increment',
                },
 

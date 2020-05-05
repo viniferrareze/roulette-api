@@ -10,6 +10,7 @@ export default class CreateRound1588355765615 implements MigrationInterface {
                   name: 'id',
                   type: 'integer',
                   isPrimary: true,
+                  isGenerated: true,
                   generationStrategy: 'increment',
                },
 

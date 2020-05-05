@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export default class CreateNumber1588210484565 implements MigrationInterface {
+export default class CreateStone1588210484565 implements MigrationInterface {
    public async up(queryRunner: QueryRunner): Promise<any> {
       await queryRunner.createTable(
          new Table({

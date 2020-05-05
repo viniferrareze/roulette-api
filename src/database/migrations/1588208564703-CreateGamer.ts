@@ -10,6 +10,7 @@ export default class CreateGamer1588208564703 implements MigrationInterface {
                   name: 'id',
                   type: 'integer',
                   isPrimary: true,
+                  isGenerated: true,
                   generationStrategy: 'increment',
                },
                {
