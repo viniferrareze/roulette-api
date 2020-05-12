@@ -31,6 +31,12 @@ export default class CreateSequence1588437065923 implements MigrationInterface {
                },
 
                {
+                  name: 'sequenceReset',
+                  type: 'boolean',
+                  default: 'false',
+               },
+
+               {
                   name: 'created_at',
                   type: 'timestamp',
                   default: 'now()',

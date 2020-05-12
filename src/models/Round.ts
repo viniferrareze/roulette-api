@@ -4,8 +4,8 @@ import {
    CreateDateColumn,
    UpdateDateColumn,
    PrimaryGeneratedColumn,
-   ManyToMany,
    JoinColumn,
+   ManyToOne,
 } from 'typeorm';
 
 import Gamer from './Gamer';
@@ -19,22 +19,25 @@ export default class Round {
    @Column()
    gamer_id: number;
 
-   @ManyToMany(() => Gamer)
+   @ManyToOne(() => Gamer)
    @JoinColumn({ name: 'gamer_id' })
    gamer: Gamer;
 
    @Column()
    stone_id: number;
 
-   @ManyToMany(() => Stone)
+   @ManyToOne(() => Stone)
    @JoinColumn({ name: 'stone_id' })
-   number: Stone;
+   stone: Stone;
 
    @Column()
    round_previus_id: number;
 
    @Column()
    sequencie: string;
+
+   @Column()
+   sequencieReset: string;
 
    @CreateDateColumn()
    created_at: Date;

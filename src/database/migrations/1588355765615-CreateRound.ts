@@ -36,6 +36,11 @@ export default class CreateRound1588355765615 implements MigrationInterface {
                   isNullable: true,
                },
                {
+                  name: 'sequencieReset',
+                  type: 'varchar',
+                  isNullable: true,
+               },
+               {
                   name: 'created_at',
                   type: 'timestamp',
                   default: 'now()',

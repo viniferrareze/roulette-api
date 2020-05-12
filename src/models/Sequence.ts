@@ -4,8 +4,8 @@ import {
    CreateDateColumn,
    UpdateDateColumn,
    PrimaryGeneratedColumn,
-   ManyToMany,
    JoinColumn,
+   ManyToOne,
 } from 'typeorm';
 
 import Gamer from './Gamer';
@@ -19,19 +19,22 @@ export default class Sequence {
    @Column()
    gamer_id: number;
 
-   @ManyToMany(() => Gamer)
+   @ManyToOne(() => Gamer)
    @JoinColumn({ name: 'gamer_id' })
    gamer: Gamer;
 
    @Column()
    situation_id: number;
 
-   @ManyToMany(() => Situation)
+   @ManyToOne(() => Situation)
    @JoinColumn({ name: 'situation_id' })
    situation: Situation;
 
    @Column()
    notification: number;
+
+   @Column()
+   sequenceReset: boolean;
 
    @CreateDateColumn()
    created_at: Date;
