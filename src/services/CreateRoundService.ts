@@ -1,3 +1,4 @@
+/* eslint-disable no-continue */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-plusplus */
 import { getRepository } from 'typeorm';
@@ -58,6 +59,39 @@ export default class CreateRoundService {
             const sequenciesDif: string[] = [];
             const sequenciesEquals: string[] = [];
             for (let index = 0; index < situationPrevius.length; index++) {
+               // posição 3 do array sempre é referente a duzia, e quando for duzia devo atualizar as duzias diferentes
+               if (index === 3) {
+                  if (situationPrevius[index] === situations[index]) {
+                     sequenciesEquals.push(situations[index]);
+                  }
+
+                  const duziaAtual = situations[index];
+
+                  for (let duzia = 7; duzia <= 9; duzia++) {
+                     if (Number(duziaAtual) !== duzia) {
+                        sequenciesDif.push(String(duzia));
+                     }
+                  }
+
+                  continue;
+               }
+
+               if (index === 4) {
+                  if (situationPrevius[index] === situations[index]) {
+                     sequenciesEquals.push(situations[index]);
+                  }
+
+                  const colunaAtual = situations[index];
+
+                  for (let coluna = 10; coluna <= 12; coluna++) {
+                     if (Number(colunaAtual) !== coluna) {
+                        sequenciesDif.push(String(coluna));
+                     }
+                  }
+
+                  continue;
+               }
+
                if (situationPrevius[index] !== situations[index]) {
                   sequenciesDif.push(situationPrevius[index]);
                } else {
