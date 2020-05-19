@@ -7,11 +7,11 @@ const roundRoutes = Router();
 roundRoutes.use(ensureAuthenticated);
 
 roundRoutes.post('/', async (req, res) => {
-   const { gamer_id, stone_id, round_previus_id } = req.body;
+   const { gamer_id, stone_id } = req.body;
 
    const createRoundServer = new CreateRoundService();
 
-   const sequencies = await createRoundServer.execute({ gamer_id, stone_id, round_previus_id });
+   const sequencies = await createRoundServer.execute({ gamer_id, stone_id });
 
    return res.json(sequencies);
 });
