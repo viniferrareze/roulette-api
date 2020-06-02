@@ -3,26 +3,23 @@ import Situation from '../models/Situation';
 import AppError from '../errors/AppError';
 
 interface RequestDTO {
-   situation_id: number;
-   active: boolean;
-   amount_notification: number;
+   situations: Situation[];
 }
 
 export default class UpdateSituationService {
-   public async excetute({ situation_id, active, amount_notification }: RequestDTO): Promise<Situation> {
+   public async excetute({ situations }: RequestDTO): Promise<Situation[]> {
       const situationRepository = getRepository(Situation);
 
-      const situation = await situationRepository.findOne(situation_id);
-
-      if (!situation) {
+      if (!situations) {
          throw new AppError('Incorret situation', 400);
       }
 
-      situation.active = active;
-      situation.amount_notification = amount_notification;
+      try {
+         await situationRepository.save(situations);
 
-      await situationRepository.save(situation);
-
-      return situation;
+         return situations;
+      } catch (error) {
+         throw new AppError('Invalid situations');
+      }
    }
 }

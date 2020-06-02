@@ -20,11 +20,11 @@ situationRoutes.get('/', async (req, res) => {
 situationRoutes.put('/', async (req, res) => {
    const updateSituationService = new UpdateSituationService();
 
-   const { id, active, amount_notification } = req.body;
+   const { situations } = req.body;
 
-   const situation = await updateSituationService.excetute({ situation_id: id, active, amount_notification });
+   const result = await updateSituationService.excetute({ situations });
 
-   res.json(situation);
+   res.json(result);
 });
 
 export default situationRoutes;

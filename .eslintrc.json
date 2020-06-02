@@ -23,6 +23,9 @@
       "prettier"
    ],
    "rules": {
+      "no-plusplus": "off",
+      "no-continue": "off",
+      "no-param-reassign": "off",
       "prettier/prettier": "error",
       "class-methods-use-this": "off",
       "@typescript-eslint/camelcase": "off",

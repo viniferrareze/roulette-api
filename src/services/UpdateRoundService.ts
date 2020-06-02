@@ -1,14 +1,15 @@
-import { getRepository } from 'typeorm';
-import AppError from '../errors/AppError';
+import { getRepository, LessThan } from 'typeorm';
 import Round from '../models/Round';
-import Stone from '../models/Stone';
 import Sequence from '../models/Sequence';
+import AppError from '../errors/AppError';
 import SequenceLog from '../models/SequenceLog';
+import Stone from '../models/Stone';
 import SequencieDiffService from './SequencieDiffService';
 import UpdateSequencieGamerService from './UpdateSequencieGamerService';
 
 interface RequestDTO {
    gamer_id: number;
+   round_id: number;
    stone_id: number;
 }
 
@@ -17,39 +18,56 @@ interface ResponseDTO {
    sequenciesGamer: Sequence[];
 }
 
-export default class CreateRoundService {
-   public async execute({ gamer_id, stone_id }: RequestDTO): Promise<ResponseDTO> {
-      const roundRepository = getRepository(Round);
-      const sequencieRepository = getRepository(Sequence);
-      const stoneRepository = getRepository(Stone);
+export default class UpdateRoundService {
+   public async execute({ gamer_id, stone_id, round_id }: RequestDTO): Promise<ResponseDTO> {
       const sequencieLogRepository = getRepository(SequenceLog);
+      const stoneRepository = getRepository(Stone);
+      const roundRepository = getRepository(Round);
 
-      if (!gamer_id && !stone_id) {
+      if (!gamer_id && !stone_id && !round_id) {
          throw new AppError('Not informaded gamer and stone id!');
       }
 
-      // pega as sequencias do gamer...
-      const sequenciesGamer = await sequencieRepository.find({
-         relations: ['situation'],
-         where: { gamer_id },
+      // pega as sequencias do gamer, do round anterior...
+      const sequenciesOldGamer = await sequencieLogRepository.find({
+         relations: ['situation', 'sequence', 'round'],
+         where: { gamer_id, round_id },
          order: { situation_id: 'ASC' },
       });
 
-      // sequencia anterior;
-      const sequenciesGamerOld = sequenciesGamer.map(sequence => ({ ...sequence }));
+      if (!sequenciesOldGamer) {
+         throw new AppError('Sequencie gamer old not found');
+      }
 
-      // pega os dados da pedra jogada...
-      const stone = await stoneRepository.findOne(stone_id);
+      // pega o log e transforma no objeto de sequencia
+      const sequenciesGamer = sequenciesOldGamer.map(sequencieOld => {
+         const sequence = new Sequence();
+         sequence.id = sequencieOld.sequence_id;
+         sequence.gamer_id = sequencieOld.gamer_id;
+         sequence.notification = sequencieOld.notification;
+         sequence.sequenceReset = sequencieOld.sequenceReset;
+         sequence.situation_id = sequencieOld.situation_id;
+         sequence.situation = sequencieOld.situation;
 
-      // cria o objeto do round.
-      const round = await roundRepository.create({ gamer_id, stone_id });
+         return sequence;
+      });
+
+      // busca o round para realizar a alteração
+      const round = await roundRepository.findOne(round_id);
+
+      if (!round) {
+         throw new AppError('Round not found');
+      }
 
       // busca os dados do round anterior
       const roundPrevius = await roundRepository.findOne({
          relations: ['stone'],
-         where: { gamer_id },
+         where: { gamer_id, id: LessThan(round_id) },
          order: { id: 'DESC' },
       });
+
+      // pega os dados da pedra jogada...
+      const stone = await stoneRepository.findOne(stone_id);
 
       // verifica se veio qual é o round anterior
       if (roundPrevius && stone) {
@@ -77,25 +95,6 @@ export default class CreateRoundService {
 
       // salva a rodada
       await roundRepository.save(round);
-
-      // cria log de sequencia por round
-      const sequenceGameLog: SequenceLog[] = [];
-
-      await sequenciesGamerOld.forEach(async sequence => {
-         sequenceGameLog.push(
-            await sequencieLogRepository.create({
-               gamer_id: sequence.gamer_id,
-               round_id: round.id,
-               sequence_id: sequence.id,
-               situation_id: sequence.situation_id,
-               notification: sequence.notification,
-               sequenceReset: sequence.sequenceReset,
-            }),
-         );
-      });
-
-      // salva a sequencia de log....
-      sequencieLogRepository.save(sequenceGameLog);
 
       return { round, sequenciesGamer };
    }

@@ -9,7 +9,7 @@ export default class InsertUser1588207071533 implements MigrationInterface {
          .createQueryBuilder()
          .insert()
          .into('user')
-         .values({ name: 'Roberto', username: 'roberto', password: hashPassword })
+         .values({ name: 'Roberto', username: 'roberto@gmail.com', password: hashPassword })
          .execute();
    }
 
