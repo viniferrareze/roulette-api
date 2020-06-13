@@ -25,6 +25,6 @@ app.use((err: Error, req: Request, res: Response, _: NextFunction) => {
    return res.status(500).json({ status: 'error', message: 'internal server error!' });
 });
 
-app.listen(3333, () => {
+app.listen(process.env.PORT || 3333, () => {
    console.log('Servidor rodando...');
 });
