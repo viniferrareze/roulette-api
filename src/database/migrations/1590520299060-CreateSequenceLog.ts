@@ -64,32 +64,8 @@ export default class CreateSequenceLog1590520299060 implements MigrationInterfac
       await queryRunner.createForeignKey(
          'sequenceLog',
          new TableForeignKey({
-            name: 'SequenceLogGamer',
-            columnNames: ['gamer_id'],
-            referencedColumnNames: ['id'],
-            referencedTableName: 'gamer',
-            onDelete: 'CASCADE',
-            onUpdate: 'CASCADE',
-         }),
-      );
-
-      await queryRunner.createForeignKey(
-         'sequenceLog',
-         new TableForeignKey({
             name: 'SequenceLogSequence',
             columnNames: ['sequence_id'],
-            referencedColumnNames: ['id'],
-            referencedTableName: 'sequence',
-            onDelete: 'CASCADE',
-            onUpdate: 'CASCADE',
-         }),
-      );
-
-      await queryRunner.createForeignKey(
-         'sequenceLog',
-         new TableForeignKey({
-            name: 'SequenceLogRound',
-            columnNames: ['round_id'],
             referencedColumnNames: ['id'],
             referencedTableName: 'sequence',
             onDelete: 'CASCADE',
@@ -113,8 +89,6 @@ export default class CreateSequenceLog1590520299060 implements MigrationInterfac
    public async down(queryRunner: QueryRunner): Promise<any> {
       await queryRunner.dropForeignKey('sequenceLog', 'SequenceLogSituation');
       await queryRunner.dropForeignKey('sequenceLog', 'SequenceLogSequence');
-      await queryRunner.dropForeignKey('sequenceLog', 'SequenceLogRound');
-      await queryRunner.dropForeignKey('sequenceLog', 'SequenceLogGamer');
 
       await queryRunner.dropTable('sequenceLog');
    }

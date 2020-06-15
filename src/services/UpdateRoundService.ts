@@ -30,7 +30,7 @@ export default class UpdateRoundService {
 
       // pega as sequencias do gamer, do round anterior...
       const sequenciesOldGamer = await sequencieLogRepository.find({
-         relations: ['situation', 'sequence', 'round'],
+         relations: ['situation'],
          where: { gamer_id, round_id },
          order: { situation_id: 'ASC' },
       });

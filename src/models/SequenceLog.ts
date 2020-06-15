@@ -8,10 +8,8 @@ import {
    ManyToOne,
 } from 'typeorm';
 
-import Gamer from './Gamer';
 import Situation from './Situation';
 import Sequence from './Sequence';
-import Round from './Round';
 
 @Entity('sequenceLog')
 export default class SequenceLog {
@@ -20,10 +18,6 @@ export default class SequenceLog {
 
    @Column()
    gamer_id: number;
-
-   @ManyToOne(() => Gamer)
-   @JoinColumn({ name: 'gamer_id' })
-   gamer: Gamer;
 
    @Column()
    sequence_id: number;
@@ -34,10 +28,6 @@ export default class SequenceLog {
 
    @Column()
    round_id: number;
-
-   @ManyToOne(() => Round)
-   @JoinColumn({ name: 'round_id' })
-   round: Round;
 
    @Column()
    situation_id: number;
