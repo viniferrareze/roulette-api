@@ -26,5 +26,5 @@ app.use((err: Error, req: Request, res: Response, _: NextFunction) => {
 });
 
 app.listen(process.env.PORT || 3333, () => {
-   console.log('Servidor rodando... o/');
+   console.log('Servidor rodando... o/ v1.0');
 });
