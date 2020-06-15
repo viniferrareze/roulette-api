@@ -30,4 +30,13 @@ gamerRoutes.get('/', async (req, res) => {
    return res.json(gamers);
 });
 
+gamerRoutes.delete('/:id', async (req, res) => {
+   const gamerRepository = getRepository(Gamer);
+   const { id } = req.params;
+
+   await gamerRepository.delete(id);
+
+   return res.send();
+});
+
 export default gamerRoutes;

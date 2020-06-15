@@ -61,7 +61,7 @@ export default class CreateRound1588355765615 implements MigrationInterface {
             columnNames: ['gamer_id'],
             referencedColumnNames: ['id'],
             referencedTableName: 'gamer',
-            onDelete: 'SET NULL',
+            onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
          }),
       );
