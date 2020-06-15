@@ -95,7 +95,7 @@ export default class CreateRoundService {
       });
 
       // salva a sequencia de log....
-      sequencieLogRepository.save(sequenceGameLog);
+      await sequencieLogRepository.save(sequenceGameLog);
 
       return { round, sequenciesGamer };
    }
