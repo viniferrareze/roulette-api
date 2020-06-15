@@ -3,13 +3,13 @@ import { hash } from 'bcryptjs';
 
 export default class InsertUser1588207071533 implements MigrationInterface {
    public async up(queryRunner: QueryRunner): Promise<any> {
-      const hashPassword = await hash('roberto123!', 8);
+      const hashPassword = await hash('Kemper@0888', 8);
 
       await queryRunner.manager
          .createQueryBuilder()
          .insert()
          .into('user')
-         .values({ name: 'Roberto', username: 'roberto@gmail.com', password: hashPassword })
+         .values({ name: 'Roberto', username: 'robertokemper@gmail.com', password: hashPassword })
          .execute();
    }
 
