@@ -30,9 +30,9 @@ gamerRoutes.get('/', async (req, res) => {
    return res.json(gamers);
 });
 
-gamerRoutes.delete('/:id', async (req, res) => {
+gamerRoutes.delete('/', async (req, res) => {
    const gamerRepository = getRepository(Gamer);
-   const { id } = req.params;
+   const { id } = req.body;
 
    if (id) {
       await gamerRepository.delete(id);
