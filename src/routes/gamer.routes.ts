@@ -37,7 +37,9 @@ gamerRoutes.delete('/', async (req, res) => {
    if (id) {
       await gamerRepository.delete(id);
    } else {
-      await gamerRepository.clear();
+      const gamers = await gamerRepository.find();
+
+      await gamerRepository.remove(gamers);
    }
 
    return res.send();
