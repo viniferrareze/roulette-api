@@ -33,6 +33,6 @@ export default function ensureAuthenticated(req: Request, res: Response, next: N
 
       return next();
    } catch {
-      throw new AppError('Invalid JWT token');
+      throw new AppError('Invalid JWT token', 403);
    }
 }
